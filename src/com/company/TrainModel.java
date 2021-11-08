@@ -55,24 +55,24 @@ public class TrainModel {
             System.out.println(rs.getString(1)+ " time:" + rs.getFloat(2));
         }
     }
-    public ArrayList<TrainInfo> QueryForDepartures() throws SQLException{
-        Scanner scanner=new Scanner(System.in);
+    public ArrayList<TrainInfo> QueryForDepartures(String from, String to, double time) throws SQLException{
+        //Scanner scanner=new Scanner(System.in);
         ArrayList<TrainInfo> trainInfos = new ArrayList<>();
-        System.out.println("which Station do you want to depart form:");
+        /*System.out.println("which Station do you want to depart form:");
         String stStation= scanner.nextLine();
         System.out.println("Which station do you want to go to?");
         String endStation = scanner.nextLine();
         System.out.println("At what time would you like to depart?");
-        float departureTime= scanner.nextFloat();
+        float departureTime= scanner.nextFloat();*/
         String sql="SELECT D1.trainid as train, D1.Stationname as start, D1.time as departure, "
                 +"D2.stationname as destination, D2.time as arrival "
                 +" FROM departure as D1 "
                 +" JOIN departure as D2 ON D1.trainid=D2.trainid "
                 +"WHERE D1.Stationname= ? AND D1.time > ? AND D2.Stationname = ? AND D1.time < D2.time ;";
         pstmt = conn.prepareStatement(sql);
-        pstmt.setString(1,stStation);
-        pstmt.setFloat(2,departureTime);
-        pstmt.setString(3,endStation);
+        pstmt.setString(1,from);
+        pstmt.setDouble(2,time);
+        pstmt.setString(3,to);
         rs=pstmt.executeQuery();
         while(rs!=null && rs.next()){
             String start=rs.getString("start");

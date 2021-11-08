@@ -21,12 +21,6 @@ public class Main extends Application {
         }catch (SQLException e){
             e.printStackTrace();
             System.out.println(e.getMessage());
-        } finally{
-            try{
-                model.closeTrainDataConnection();
-            } catch (SQLException e){
-                System.out.println(e.getMessage());
-            }
         }
     }
 
